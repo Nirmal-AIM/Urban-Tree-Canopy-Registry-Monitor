@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base App Theme Styling */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Light Theme Styling - Clean Solid Government Theme */
+.theme-light {
+  background-color: #f8fafc;
+  color: #0f172a;
+  min-height: 100vh;
+}
+
+.theme-light .glass-panel {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+
+.theme-light .glass-panel:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+}
+
+.theme-light .glass-panel-emerald {
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+.theme-light .glass-panel-danger {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+}
+
+/* Dark Theme Styling - Clean Solid Dark Theme */
+.theme-dark {
+  background-color: #070b19;
+  color: #f3f4f6;
+  min-height: 100vh;
+}
+
+.theme-dark .glass-panel {
+  background-color: #0f172a;
+  border: 1px solid #1e293b;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+.theme-dark .glass-panel:hover {
+  border-color: #334155;
+}
+
+.theme-dark .glass-panel-emerald {
+  background-color: #064e3b;
+  border: 1px solid #059669;
+}
+
+.theme-dark .glass-panel-danger {
+  background-color: #7f1d1d;
+  border: 1px solid #dc2626;
+}
+
+/* Header Navbar */
+.theme-light header {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.theme-dark header {
+  background-color: #090d1a !important;
+  border-bottom: 1px solid #1e293b !important;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.theme-dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #10b981;
+}

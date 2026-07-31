@@ -1,0 +1,117 @@
+// Digital Tree Felling & Compensatory Plantation Registry for GVMC Urban Forestry
+
+export const INITIAL_TREE_REGISTRY = [
+  {
+    permitId: 'GVMC-TFP-2024-089',
+    wardNo: 4,
+    wardName: 'Madhurawada IT SEZ & Hill Crest',
+    applicant: 'Visakhapatnam Metropolitan Region Development Authority (VMRDA)',
+    reason: 'Road widening & 6-lane access road for IT Park Phase 2',
+    treesRequested: 180,
+    treesApproved: 180,
+    species: 'Peltophorum, Rain Tree, Azadirachta Indica (Neem)',
+    mandatoryCompensatoryQuota: 1800, // 1:10 rule
+    plantedCount: 950,
+    depositPaidRs: 3600000,
+    status: 'Deficit Alert',
+    fellingDate: '2024-03-15',
+    deadlineDate: '2024-09-15',
+    officerInCharge: 'R. K. Sastry (Assistant Conservator of Forests)',
+    geoPoint: { lat: 17.8184, lng: 83.3768 },
+    verifiedByQr: true,
+    photoProofBefore: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&auto=format&fit=crop&q=80',
+    photoProofAfter: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&auto=format&fit=crop&q=80'
+  },
+  {
+    permitId: 'GVMC-TFP-2024-112',
+    wardNo: 62,
+    wardName: 'Gajuwaka Industrial Highway Corridor',
+    applicant: 'National Highways Authority of India (NHAI)',
+    reason: 'Underpass expansion at Gajuwaka Junction',
+    treesRequested: 240,
+    treesApproved: 220,
+    species: 'Subabul, Banyan, Tamarind',
+    mandatoryCompensatoryQuota: 2200,
+    plantedCount: 700,
+    depositPaidRs: 4400000,
+    status: 'Critical Non-Compliance',
+    fellingDate: '2024-02-10',
+    deadlineDate: '2024-08-10',
+    officerInCharge: 'M. V. Ramana (Forest Range Officer)',
+    geoPoint: { lat: 17.6890, lng: 83.2140 },
+    verifiedByQr: true,
+    photoProofBefore: 'https://images.unsplash.com/photo-1511497584788-8767611136f6?w=600&auto=format&fit=crop&q=80',
+    photoProofAfter: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600&auto=format&fit=crop&q=80'
+  },
+  {
+    permitId: 'GVMC-TFP-2024-145',
+    wardNo: 18,
+    wardName: 'MVP Colony Sector 1-5 & AS Raja Grounds',
+    applicant: 'GVMC Engineering Department',
+    reason: 'Stormwater drain channel reconstruction',
+    treesRequested: 45,
+    treesApproved: 40,
+    species: 'Gulmohar, Bougainvillea, Copper Pod',
+    mandatoryCompensatoryQuota: 400,
+    plantedCount: 420,
+    depositPaidRs: 800000,
+    status: 'Completed',
+    fellingDate: '2024-04-20',
+    deadlineDate: '2024-10-20',
+    officerInCharge: 'S. K. Naidu (Zone-4 Forestry Inspector)',
+    geoPoint: { lat: 17.7420, lng: 83.3325 },
+    verifiedByQr: true,
+    photoProofBefore: 'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&auto=format&fit=crop&q=80',
+    photoProofAfter: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&auto=format&fit=crop&q=80'
+  },
+  {
+    permitId: 'GVMC-TFP-2024-178',
+    wardNo: 29,
+    wardName: 'Jagadamba Junction & Poorna Market',
+    applicant: 'GVSCCL Smart City Mission',
+    reason: 'Multi-Level Car Parking approach ramp',
+    treesRequested: 65,
+    treesApproved: 65,
+    species: 'Neem, Peepal',
+    mandatoryCompensatoryQuota: 650,
+    plantedCount: 150,
+    depositPaidRs: 1300000,
+    status: 'Deficit Alert',
+    fellingDate: '2024-05-02',
+    deadlineDate: '2024-11-02',
+    officerInCharge: 'P. Appa Rao (Deputy Urban Forester)',
+    geoPoint: { lat: 17.7110, lng: 83.3020 },
+    verifiedByQr: true,
+    photoProofBefore: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=600&auto=format&fit=crop&q=80',
+    photoProofAfter: 'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=600&auto=format&fit=crop&q=80'
+  }
+];
+
+export const CITIZEN_REPORTS_INITIAL = [
+  {
+    reportId: 'REP-GVMC-2025-014',
+    wardNo: 18,
+    wardName: 'MVP Colony Sector 3',
+    landmark: 'Near AS Raja College Circle',
+    incidentType: 'Illegal Tree Cutting without Permit QR',
+    description: '3 mature Neem trees cut down overnight by private commercial plot developer.',
+    reportedBy: 'K. Srinivasa Rao (Resident Welfare Assoc)',
+    reportDate: '2025-07-28',
+    status: 'Under Investigation',
+    gps: { lat: 17.7425, lng: 83.3330 },
+    image: 'https://images.unsplash.com/photo-1511497584788-8767611136f6?w=600&auto=format&fit=crop&q=80'
+  },
+  {
+    reportId: 'REP-GVMC-2025-009',
+    wardNo: 4,
+    wardName: 'Madhurawada IT SEZ',
+    landmark: 'Opposite Hill No 3 Gate',
+    incidentType: 'Compensatory Saplings Dried Up',
+    description: 'Planted saplings along the avenue have dried due to lack of regular watering maintenance.',
+    reportedBy: 'Anita Verma',
+    reportDate: '2025-07-22',
+    status: 'Action Dispatched',
+    gps: { lat: 17.8190, lng: 83.3775 },
+    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&auto=format&fit=crop&q=80'
+  }
+];

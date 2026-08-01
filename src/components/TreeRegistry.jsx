@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FileText, PlusCircle, CheckCircle2, AlertTriangle, QrCode, Image as ImageIcon, Search, CreditCard, Calculator, ShieldCheck, Download } from 'lucide-react';
+import { FileText, PlusCircle, CheckCircle2, AlertTriangle, QrCode, Image as ImageIcon, Search, CreditCard, Calculator, ShieldCheck, Download, Bot, Sparkles } from 'lucide-react';
 import { GVMC_WARDS } from '../data/gvmcWardsData';
 
 export default function TreeRegistry({ registryList, onAddPermit, isDarkMode }) {
@@ -20,7 +20,8 @@ export default function TreeRegistry({ registryList, onAddPermit, isDarkMode }) 
     reason: '',
     treesRequested: 20,
     species: 'Peltophorum, Neem',
-    officerInCharge: 'R. K. Sastry (Assistant Conservator)'
+    officerInCharge: 'R. K. Sastry (Assistant Conservator)',
+    autoApproveAi: false
   });
 
   const filteredPermits = registryList.filter(p => 
@@ -36,6 +37,16 @@ export default function TreeRegistry({ registryList, onAddPermit, isDarkMode }) 
     const compensatoryQuota = treesNum * 10;
     const deposit = compensatoryQuota * 2000;
 
+    // Automated Policy Evaluation Logic
+    let statusText = 'Quota Pending';
+    if (formData.autoApproveAi) {
+      if (treesNum <= 10 && wardObj.netCanopyChangePercent > -10) {
+        statusText = 'Auto-Approved by AI Engine';
+      } else {
+        statusText = 'Escalated to DFO Review (High Impact)';
+      }
+    }
+
     const newPermit = {
       permitId: `GVMC-TFP-2025-${Math.floor(100 + Math.random() * 900)}`,
       wardNo: wardObj.wardNo,
@@ -46,12 +57,12 @@ export default function TreeRegistry({ registryList, onAddPermit, isDarkMode }) 
       treesApproved: treesNum,
       species: formData.species,
       mandatoryCompensatoryQuota: compensatoryQuota,
-      plantedCount: 0,
+      plantedCount: statusText === 'Auto-Approved by AI Engine' ? 0 : 0,
       depositPaidRs: deposit,
-      status: 'Quota Pending',
+      status: statusText,
       fellingDate: new Date().toISOString().split('T')[0],
       deadlineDate: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      officerInCharge: formData.officerInCharge,
+      officerInCharge: statusText.includes('AI') ? 'AI Automated Policy Rule Engine v2.4' : formData.officerInCharge,
       geoPoint: { lat: wardObj.lat, lng: wardObj.lng },
       verifiedByQr: true,
       photoProofBefore: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&auto=format&fit=crop&q=80',
@@ -164,7 +175,7 @@ export default function TreeRegistry({ registryList, onAddPermit, isDarkMode }) 
                 <th className="px-4 py-3">Trees Approved</th>
                 <th className="px-4 py-3">1:10 Mandatory Quota</th>
                 <th className="px-4 py-3">Deposit Guarantee</th>
-                <th className="px-4 py-3">Status</th>
+                <th className="px-4 py-3">Status & Policy Evaluation</th>
                 <th className="px-4 py-3 text-right">Escrow & Survival Audits</th>
               </tr>
             </thead>
@@ -183,7 +194,7 @@ export default function TreeRegistry({ registryList, onAddPermit, isDarkMode }) 
                     <td className="px-4 py-3">
                       <div className={`font-bold max-w-[220px] truncate ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>{permit.applicant}</div>
                       <div className={`text-[11px] max-w-[220px] truncate mt-0.5 ${isDarkMode ? 'text-gray-400' : 'text-slate-600'}`}>{permit.reason}</div>
-                      <div className="text-[10px] text-emerald-700 font-mono font-bold mt-0.5">Species: {permit.species}</div>
+                      <div className="text-[10px] text-emerald-700 font-mono font-bold mt-0.5">Officer/Engine: {permit.officerInCharge}</div>
                     </td>
 
                     <td className="px-4 py-3 font-mono">
@@ -212,13 +223,13 @@ export default function TreeRegistry({ registryList, onAddPermit, isDarkMode }) 
 
                     <td className="px-4 py-3">
                       <span className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold border inline-flex items-center gap-1 ${
-                        permit.status === 'Completed'
+                        permit.status === 'Completed' || permit.status === 'Auto-Approved by AI Engine'
                           ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
-                          : permit.status === 'Critical Non-Compliance'
+                          : permit.status.includes('Escalated') || permit.status === 'Critical Non-Compliance'
                           ? 'bg-red-100 text-red-800 border-red-300'
                           : 'bg-amber-100 text-amber-800 border-amber-300'
                       }`}>
-                        {permit.status === 'Completed' ? <CheckCircle2 className="w-3 h-3 text-emerald-600" /> : <AlertTriangle className="w-3 h-3 text-amber-600" />}
+                        {permit.status.includes('Auto') ? <Bot className="w-3 h-3 text-emerald-600" /> : permit.status === 'Completed' ? <CheckCircle2 className="w-3 h-3 text-emerald-600" /> : <AlertTriangle className="w-3 h-3 text-amber-600" />}
                         {permit.status}
                       </span>
                     </td>
@@ -412,6 +423,23 @@ export default function TreeRegistry({ registryList, onAddPermit, isDarkMode }) 
                 </div>
               </div>
 
+              {/* Automated AI Policy Engine Checkbox Toggle */}
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <Bot className="w-4 h-4 text-emerald-600" />
+                  <div>
+                    <span className="text-xs font-bold text-slate-900 block">AI Automated Fast-Track Approval Policy</span>
+                    <span className="text-[10px] text-slate-500">Auto-approves low-impact requests (≤10 trees) in stable wards</span>
+                  </div>
+                </div>
+                <input
+                  type="checkbox"
+                  checked={formData.autoApproveAi}
+                  onChange={(e) => setFormData({ ...formData, autoApproveAi: e.target.checked })}
+                  className="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500 cursor-pointer"
+                />
+              </div>
+
               <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-300 text-[11px] text-emerald-900 font-medium">
                 💰 <strong>Escrow Deposit Calculation:</strong> ₹{(formData.treesRequested * 10 * 2000).toLocaleString()} must be deposited in GVMC Urban Forestry Escrow account prior to permit issuance.
               </div>
@@ -426,9 +454,9 @@ export default function TreeRegistry({ registryList, onAddPermit, isDarkMode }) 
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md"
+                  className="px-5 py-2 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md flex items-center gap-1.5"
                 >
-                  Issue Permit
+                  <Sparkles className="w-3.5 h-3.5 text-amber-300" /> Issue Permit
                 </button>
               </div>
             </form>

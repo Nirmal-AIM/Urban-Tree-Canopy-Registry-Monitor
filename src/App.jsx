@@ -7,6 +7,7 @@ import AiInsightGenerator from './components/AiInsightGenerator';
 import CitizenReportModal from './components/CitizenReportModal';
 import GreenVizagCommunityHub from './components/GreenVizagCommunityHub';
 import SystemInfoModal from './components/SystemInfoModal';
+import GvmcChatbot from './components/GvmcChatbot';
 
 import { GVMC_WARDS, getWardsForYear, calculateDynamicCitySummary } from './data/gvmcWardsData';
 import { INITIAL_TREE_REGISTRY } from './data/treeRegistryData';
@@ -323,6 +324,9 @@ export default function App() {
           isDarkMode={isDarkMode}
         />
       )}
+
+      {/* Global GVMC Vana-Mitra Floating AI Chatbot */}
+      <GvmcChatbot isDarkMode={isDarkMode} />
 
       {/* Footer */}
       <footer className={`border-t py-4 text-center text-xs transition-colors ${
